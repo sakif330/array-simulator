@@ -1,228 +1,261 @@
-let fruits = ["Banana", "Orange", "Apple", "Mango"];
+let array = ["Banana", "Orange", "Apple", "Mango"];
 let dummy = ["Grapes", "Strawberries", "Watermelon"];
-document.getElementById("demo").innerHTML = fruits.toString();
-document.getElementById("demo3").innerHTML = dummy.toString();
+let initialArray = document.getElementById("initialArray");
+let arrayCutResult = document.getElementById("arrayCutResult");
+let userInputArray = document.getElementById("input");
+let userIndexArray = document.getElementById("index");
+let dummyResultArray = document.getElementById("dummyResult");
+initialArray.innerHTML = array.toString();
+document.getElementById("dummyArray").innerHTML = dummy.toString();
 
-function onPOP() {
-    document.getElementById("demo2").style.visibility = 'hidden';
-    fruits.pop();  
-    document.getElementById("demo").innerHTML = fruits;
-  }
-
-  function onPUSH() {
-    document.getElementById("demo2").style.visibility = 'hidden';
-    let x = document.getElementById("input").value;
-    if(x !=""){   
-    fruits.push(x);  
-    document.getElementById("demo").innerHTML = fruits;
-    document.getElementById("input").value = "";
-    }
-    else{
-        alert("Invalid Input!");
-    }
-  }
-
-  function onSHIFT() {
-    document.getElementById("demo2").style.visibility = 'hidden';
-    fruits.shift();  
-    document.getElementById("demo").innerHTML = fruits;
-  }
-
-  function onUNSHIFT() {
-    document.getElementById("demo2").style.visibility = 'hidden';
-    let x = document.getElementById("input").value; 
-    if(x !=""){ 
-    fruits.unshift(x);  
-    document.getElementById("demo").innerHTML = fruits;
-    document.getElementById("input").value = "";
-    }
-    else{
-        alert("Invalid Input!");
-    }
-
-  }
-  function onSLICE() {
-    let x = document.getElementById("index").value; 
-    let sp = x.split(',');
-    let n = sp.length;
-    if(n==1){
+var validationCollection = {
+  isEmpty(x) {
+    if(x !=""){
+      return true;
+     }
+     else{
+      return false;
+      }
     
-    if(x =="" || isNaN(x) || x>fruits.length){   
-    document.getElementById("index").value = "";
-    document.getElementById("demo2").style.visibility = 'hidden';
-    alert("Invalid Input!");
+  },
+  isEmptyOrNaN(x){
+     
+    if(x =="" || isNaN(x)){
+      return true;
+     }
+     else{
+      return false;
+      }
+   
+  }
+};
+
+function errorMsg(){
+       return(alert("Invalid Input"));
+}
+
+
+function onPop() {
+    arrayCutResult.style.visibility = 'hidden';
+    array.pop();  
+    initialArray.innerHTML = array;
+  }
+
+  function onPush() {
+    arrayCutResult.style.visibility = 'hidden';
+    let input = userInputArray.value;
+    if(validationCollection.isEmpty(input)){   
+    array.push(input);  
+    initialArray.innerHTML = array;
+    userInputArray.value = "";
+    }
+    else{     
+       errorMsg();
+    }
+  }
+
+  function onShift() {
+    arrayCutResult.style.visibility = 'hidden';
+    array.shift();  
+    initialArray.innerHTML = array;
+  }
+
+  function onUnshift() {
+    arrayCutResult.style.visibility = 'hidden';
+    let input = userInputArray.value; 
+    if(validationCollection.isEmpty(input)){ 
+    array.unshift(input);  
+    initialArray.innerHTML = array;
+    userInputArray.value = "";
     }
     else{
-        let y=fruits.slice(x);  
-        document.getElementById("demo").innerHTML = fruits;
-        document.getElementById("demo2").innerHTML = y;
-        document.getElementById("demo2").style.visibility = 'visible';
        
-        document.getElementById("index").value = "";
+        errorMsg();
     }
-    }
-    else if(n==2){
 
-        if(sp[0] =="" || sp[1] == "" || sp[0]>=sp[1] || isNaN(sp[0]) || isNaN(sp[1]) || sp[0] < 0 || sp[1]> fruits.length){   
-            document.getElementById("index").value = "";
-            document.getElementById("demo2").style.visibility = 'hidden';
-            alert("Invalid Input!");
+  }
+  function onSlice() { // change method name to camlecase , // CleanCode, CodeSmell, Code Refactoring, 
+    let index = userIndexArray.value; 
+    let arrSplit = index.split(',');
+    let arrLength = arrSplit.length;  // change variable names to meaningfull name
+    // slice(2,1)
+    if(arrLength==1){
+    
+    if(validationCollection.isEmptyOrNaN(index) || index>array.length){   
+     userIndexArray.value = "";
+    arrayCutResult.style.visibility = 'hidden';
+    errorMsg();
+    }
+    else{
+        let slicedItem =array.slice(index);  
+        initialArray.innerHTML = array;
+        arrayCutResult.innerHTML = slicedItem;
+        arrayCutResult.style.visibility = 'visible';
+       
+        userIndexArray.value = "";
+    }
+    }
+    else if(arrLength==2){
+
+        if(validationCollection.isEmptyOrNaN(arrSplit[0]) || validationCollection.isEmptyOrNaN(arrSplit[1])  || arrSplit[0]>=arrSplit[1]|| arrSplit[0] < 0 || arrSplit[1]> array.length){   
+            userIndexArray.value = "";
+            arrayCutResult.style.visibility = 'hidden';           
+            errorMsg();
             }
             else{
-                let yz=fruits.slice(sp[0],sp[1]);  
-                document.getElementById("demo").innerHTML = fruits;
-                document.getElementById("demo2").innerHTML = yz;
-                document.getElementById("demo2").style.visibility = 'visible';
+                let slicedItems=array.slice(arrSplit[0],arrSplit[1]);  
+                initialArray.innerHTML = array;
+                arrayCutResult.innerHTML = slicedItems;
+                arrayCutResult.style.visibility = 'visible';
                
-                document.getElementById("index").value = "";
+                userIndexArray.value = "";
             }
     }
 
     else{
-        alert("Invalid Input!");
+       
+       errorMsg();
 
       
     }
   }
 
-function onSPLICE() { 
-        let x = document.getElementById("index").value;
-        let y = document.getElementById("input").value; 
-        let sp = x.split(',');
-        let insputplt = y.split(',');
-        let n = sp.length;
-        if(n==2 && y!=""){
+function onSplice() { 
+        let indexArray = userIndexArray.value;
+        let inputArray = userInputArray.value; 
+        let indexSplit = indexArray.split(',');
+        let inputSplit = inputArray.split(',');
+        let arrLength = indexSplit.length;
+        if(arrLength ==2 && inputArray!=""){
     
-            if(sp[0] =="" || sp[1] == "" || isNaN(sp[0]) || isNaN(sp[1]) || sp[0] < 0 || sp[1]>= fruits.length || sp[0]>= fruits.length){   
-                document.getElementById("index").value = "";
-                document.getElementById("demo2").style.visibility = 'hidden';
-                alert("Invalid Input!");
+            if(validationCollection.isEmptyOrNaN(indexSplit[0]) || validationCollection.isEmptyOrNaN(indexSplit[1])||  indexSplit[0] < 0 || indexSplit[1]>= array.length || indexSplit[0]>= array.length){   
+                userIndexArray.value = "";
+                arrayCutResult.style.visibility = 'hidden';
+               
+                errorMsg();
                 }
                 else{
 
-                  for(let i=insputplt.length-1;i>=0;i--){
-                    if(i==insputplt.length-1){
-                     yz= fruits.splice(sp[0],sp[1],insputplt[i]);
+                  for(let i=inputSplit.length-1;i>=0;i--){
+                    if(i==inputSplit.length-1){
+                    let splicedItem = array.splice(indexSplit[0],indexSplit[1],inputSplit[i]);
 
                     }
                     else{
-                      fruits.splice(sp[0],0,insputplt[i]);
+                      array.splice(indexSplit[0],0,inputSplit[i]);
                     }
 
                   }
-
-                     
-                   // let yz=fruits.splice(sp[0],sp[1],insputplt); 
-                   // fruits = insputplt;
-                    document.getElementById("demo").innerHTML = fruits; 
+                   initialArray.innerHTML = array; 
                     
-                    document.getElementById("demo2").innerHTML = yz;
-                    document.getElementById("demo2").style.visibility = 'visible';
+                   arrayCutResult.innerHTML = splicedItem;
+                   arrayCutResult.style.visibility = 'visible';
                    
-                    document.getElementById("index").value = "";
-                    document.getElementById("input").value = ""; 
+                     userIndexArray.value = "";
+                    userInputArray.value = ""; 
                 }      
         }
-        else if(n==2 && y==""){
-          if(sp[0] =="" || sp[1] == "" || isNaN(sp[0]) || isNaN(sp[1]) || sp[0] < 0 || sp[1]>= fruits.length || sp[0]>= fruits.length){   
-            document.getElementById("index").value = "";
-            document.getElementById("demo2").style.visibility = 'hidden';
-            alert("Invalid Input!");
+        else if(arrLength ==2 && inputArray==""){
+          if(validationCollection.isEmptyOrNaN(indexSplit[0]) || validationCollection.isEmptyOrNaN(indexSplit[1]) || indexSplit[0] < 0 || indexSplit[1]>= array.length || indexSplit[0]>= array.length){   
+            userIndexArray.value = "";
+            arrayCutResult.style.visibility = 'hidden';
+            
+            errorMsg();
             }
             else{
                  
-                let yz=fruits.splice(sp[0],sp[1]); 
-                document.getElementById("demo").innerHTML = fruits; 
+                let spliedItem =array.splice(indexSplit[0],indexSplit[1]); 
+                initialArray.innerHTML = array; 
                 
-                document.getElementById("demo2").innerHTML = yz;
-                document.getElementById("demo2").style.visibility = 'visible';
+                arrayCutResult.innerHTML = spliedItem;
+                arrayCutResult.style.visibility = 'visible';
                
-                document.getElementById("index").value = "";
-                document.getElementById("input").value = ""; 
+                userIndexArray.value = "";
+                userInputArray.value = ""; 
             } 
 
         }
     
         else{
-            alert("Invalid Input!");
+           
+           errorMsg();
     
         }
   } 
-  function onREPLACE() {
-    let x = document.getElementById("input").value; 
-    let y = document.getElementById("index").value; 
-    if(x !="" && y !="" &&  y<fruits.length){ 
-    fruits[y]=x;  
-    document.getElementById("demo").innerHTML = fruits;
-    document.getElementById("input").value = "";
-    document.getElementById("index").value = "";
+  function onReplace() {
+    let input = userInputArray.value; 
+    let index = userIndexArray.value; 
+    if(validationCollection.isEmpty(input) && validationCollection.isEmpty(index) &&  index<array.length){ 
+    array[index]=input;  
+    initialArray.innerHTML = array;
+    userInputArray.value = "";
+    userIndexArray.value = "";
     }
     else{
-        alert("Invalid Input!");
+       
+       errorMsg();
     }
 
   }
 
-  function onDELETE() {
+  function onDelete() {
     
-    let y = document.getElementById("index").value; 
-    if(y !=""){ 
-    delete fruits[y];  
-    document.getElementById("demo").innerHTML = fruits;
-    document.getElementById("input").value = "";
-    document.getElementById("index").value = "";
+    let index = userIndexArray.value; 
+    if(validationCollection.isEmpty(index)){ 
+    delete array[index];  
+    initialArray.innerHTML = array;
+    userInputArray.value = "";
+    userIndexArray.value = "";
     }
     else{
-        alert("Invalid Input!");
+       
+       errorMsg();
     }
 
   }
 
-  function onSORT() {
-    document.getElementById("demo2").style.visibility = 'hidden';
-    fruits.sort();  
-    document.getElementById("demo").innerHTML = fruits;
+  function onSort() {
+    arrayCutResult.style.visibility = 'hidden';
+    array.sort();  
+    initialArray.innerHTML = array;
   }
 
-  function onREVERSE() {
-    document.getElementById("demo2").style.visibility = 'hidden';
-    fruits.reverse();  
-    document.getElementById("demo").innerHTML = fruits;
+  function onReverse() {
+    arrayCutResult.style.visibility = 'hidden';
+    array.reverse();  
+    initialArray.innerHTML = array;
   }
 
 
-  function onCONCAT() {
+  function onConcat() {
     
-    let x = fruits.concat(dummy);
-    document.getElementById("demo4").innerHTML = x;
-    document.getElementById("demo4").style.visibility = 'visible';
+    let concatArray = array.concat(dummy);
+    dummyResultArray.innerHTML = concatArray;
+    dummyResultArray.style.visibility = 'visible';
 
   }
-  function onJOIN() {
-    let x = document.getElementById("input2").value; 
-    if(x !=""){    
-    document.getElementById("demo4").innerHTML = dummy.join(x);
-    document.getElementById("demo4").style.visibility = 'visible';
+  function onJoin() {
+    let joinInput = document.getElementById("input2").value; 
+    if(validationCollection.isEmpty(joinInput)){    
+    dummyResultArray.innerHTML = dummy.join(joinInput);
+    dummyResultArray.style.visibility = 'visible';
     document.getElementById("input2").value="";
     }
     else{
-      alert("Invalid Input!");
+      
+      errorMsg();
      }
 
   }
 
-
-
-
-
-  function onMORE() {
-    document.getElementById("demo2").style.visibility = 'hidden';
-    let x = document.getElementById('myDIV');
+  function onMore() {
+    arrayCutResult.style.visibility = 'hidden';
+    let moreDiv = document.getElementById('myDIV');
     
-    if (x.style.visibility === 'hidden') {
-      x.style.visibility = 'visible';
+    if (moreDiv.style.visibility === 'hidden') {
+      moreDiv.style.visibility = 'visible';
     } else {
-      x.style.visibility = 'hidden';
+      moreDiv.style.visibility = 'hidden';
     }
-    document.getElementById("demo4").style.visibility = 'hidden';
+    dummyResultArray.style.visibility = 'hidden';
   }
