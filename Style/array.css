@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;    
+  }
+  .mydiv {
+    margin: auto;
+    width: 500px;
+    height: 500px;
+    background-color: lightblue;
+    text-align: center;
+  }
+  .mypad {
+    margin: auto;
+    padding: 10px;
+  }

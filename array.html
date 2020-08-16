@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array Simulator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="Style/array.css" rel="stylesheet">
+</head>
+<body>
+  <div class="jumbotron text-center">
+    <h1>Array Simulator</h1>
+    <p>Checkout all the array methods!</p> 
+  </div>
+  <div class="jumbotron text-center">
+    
+        
+         <h2 style="display:inline;">Initial Array: </h2>   
+         <h2 id="demo" style="display:inline;"> hi</h2> <br><br>
+         Input:  <input type="text" id="input" value=""><br><br>
+         Index:  <input type="text" id="index" value=""><br><br>
+         
+          <button onclick="onPUSH()" class="btn btn-info">Push</button>
+          <button onclick="onPOP()" class="btn btn-info">Pop</button>
+          <button onclick="onSHIFT()" class="btn btn-info">Shift</button>
+          <button onclick="onUNSHIFT()" class="btn btn-info">Unshift</button>
+          <button onclick="onSPLICE()" class="btn btn-info">Splice</button>
+           <button onclick="onSLICE()" class="btn btn-info">Slice</button>
+          <button onclick="onREPLACE()" class="btn btn-info">Replace</button>
+          <button onclick="onDELETE()" class="btn btn-info">Delete</button>
+          <button onclick="onSORT()" class="btn btn-info">Sort</button>
+          <button onclick="onREVERSE()" class="btn btn-info">Reverse</button>
+          <button onclick="onMORE()" class="btn btn-info">More </button>
+          <h3 style="visibility: hidden;" id="demo2">hiiii</h3>
+          <div style="visibility: hidden;" class="mypad" id="myDIV">
+              <h2 style="display:inline;">Dummy Array: </h2>  
+              <h2 id="demo3" style="display:inline;">hi</h2><br><br>
+              Input:  <input type="text" id="input2" value="">
+              <h3 style="visibility: hidden;" id="demo4" class="mypad">hiiii</h3>
+              <button onclick="onCONCAT()" class="btn btn-info">CONCAT</button>
+              <button onclick="onJOIN()" class="btn btn-info">JOIN</button>
+          </div>
+  </div>
+    
+  <script src="Script/array.js"></script>
+</body>
+</html>
